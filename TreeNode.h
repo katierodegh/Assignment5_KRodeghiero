@@ -12,7 +12,7 @@ class TreeNode {
     //TreeNode(int key, string value); //another option
     ~TreeNode();
 
-    T key;
+    T key; //key is the entire student object
     TreeNode *left; //pointers to out left and right child
     TreeNode *right;
 

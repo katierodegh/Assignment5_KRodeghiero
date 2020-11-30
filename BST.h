@@ -1,6 +1,11 @@
 #include<iostream>
 #include "TreeNode.h"
+#include "Faculty.h"
+#include "Student.h"
 using namespace std;
+
+#ifndef BST_H
+#define BST_H
 
 template <class B>
 class BST {
@@ -252,3 +257,5 @@ TreeNode<B>* BST<B>::getSuccessor(TreeNode<B> *d) {
 
   return successor;
 }
+
+#endif
