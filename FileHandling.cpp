@@ -5,33 +5,64 @@
 #include<iostream>
 using namespace std;
 
-// FileHandling::FileHandling(){
-// }
-//
-// string FileHandling::PromptFileInput() { //prompts for the input file name
-//   string fileName;
-//   cout<< "Please enter the file you wish to use: " << endl;
-//   cin >> fileName;
-//   return fileName;
-// }
-//
-// ifstream FileHandling::OpenFile(string fileName) { //Takes in the file name and opens it, returns the open file
-//   ifstream myFile;
-//   myFile.open(fileName);
-//   while (!(myFile.is_open())) { //if the file is not open, reprompt until good input
-//     cout << "That file doesn't exist." << endl;
-//     fileName = PromptFileInput();
-//     myFile.open(fileName);
-//   }
-//   return myFile;
-// }
-//
+FileHandling::FileHandling(){
+  studentTree = new BST<Student>;
+  facultyTree = new BST<Faculty>;
+}
+
+FileHandling::~FileHandling(){
+}
+
+bool FileHandling::checkForFile(string fileName) { //checks to see if both files exist
+  ofstream myfile(fileName);
+  if(myfile.is_open()) {
+    myfile.close();
+    return true;
+  }
+  return false;
+}
+
+bool FileHandling::bothExist() {
+  if (checkForFile("studentTable.txt") && checkForFile("facultyTable.txt")) {
+    populateFacTree();
+    populateStudTree();
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+
+void FileHandling::populateFacTree() {
+  ofstream facFile("facultyTable.txt");
+  string myText;
+  int lineID;
+  string lineName;
+  string lineLevel;
+  string lineDepartment;
+  int numAdvisees;
+  int count = 0;
+  while(getline(facFile, myText)) {
+    ++count;
+    if(count == 1) {
+      int lineID = myText
+    }
+
+  }
+}
+
+void FileHandling::populateStudTree() {
+  ofstream studFile("studentTable.txt");
+}
+
 // string FileHandling::EachLine(ifstream& myFile) { //takes the open file and returns a line of text
 //   string myText;
 //   getline(myFile, myText);
 //   return myText;
 // }
 //
-// void FileHandling::CloseFile(ifstream& myFile) { //closes the file
-//   myFile.close();
-// }
+void FileHandling::CloseFile(ifstream& studFile, ifstream& facFile) { //closes the file
+  studFile.close();
+  facFille.close();
+}

@@ -25,6 +25,8 @@ public:
     //int getMin();
     void recPrint(TreeNode<B> *node);
     void printTree();
+    void printNode(B value);
+    TreeNode<B> giveNode(int value);
 
     TreeNode<B> *getSuccessor(TreeNode<B> *d); //returns the successor of the node to be deleted, d
 };
@@ -63,6 +65,46 @@ template <class B>
 void BST<B>::printTree() {
   //prints the whole tree
   recPrint(root);
+}
+
+template <class B>
+void BST<B>::printNode(B value) {
+
+  TreeNode<B> *current = root;
+
+  while (current->key != value) {
+    if (value < current->key) {
+      current = current -> left;
+    }
+    else {
+      current = current -> right;
+    }
+    if(current == NULL) {
+      //value does not exist
+      return;
+    }
+  }
+  cout << current->key << endl;
+}
+
+template <class B>
+TreeNode<B> BST<B>::giveNode(int value) {
+
+  TreeNode<B> *current = root;
+
+  while (current->key != value) {
+    if (value < current->key) {
+      current = current -> left;
+    }
+    else {
+      current = current -> right;
+    }
+    if(current == NULL) {
+      //value does not exist
+      return NULL;
+    }
+  }
+  return current;
 }
 
 // template <class B>

@@ -15,11 +15,15 @@ private:
 
 public:
   Student(int ID, string name, string studLevel, string major, double GPA, int advisorID);
+  Student(int ID);
+  int getAdvisorID();
+  void setAdvisorID(int ID);
   friend ostream& operator<<(ostream& os, const Student& obj);
   bool operator<(Student const& rhs);
   bool operator>(Student const& rhs);
   bool operator==(Student const& rhs);
   bool operator==(int id);
+  bool operator!=(int id);
 };
 
 #endif

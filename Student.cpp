@@ -11,13 +11,30 @@ Student::Student(int ID, string name, string studLevel, string major, double GPA
   this->advisorID = advisorID;
 }
 
+Student::Student(int ID) {
+  this->ID = ID;
+  name = "";
+  studLevel = "";
+  major = "";
+  GPA = 0.0;
+  advisorID = 0;
+}
+
+int Student::getAdvisorID() {
+  return advisorID;
+}
+
+void Student::setAdvisorID(int ID) {
+  this->ID = ID;
+}
+
 ostream& operator<<(ostream& os, const Student& obj) {
-  os << obj.ID << endl;
-  os << obj.name << endl;
-  os << obj.studLevel << endl;
-  os << obj.major << endl;
-  os << obj.GPA << endl;
-  os << obj.advisorID << endl;
+  os << "ID: " << obj.ID << endl;
+  os << "Name: " << obj.name << endl;
+  os << "Student Level: " << obj.studLevel << endl;
+  os << "Major: " << obj.major << endl;
+  os << "GPA: " << obj.GPA << endl;
+  os << "Advisor ID: " << obj.advisorID << endl;
 
   return os;
 }
@@ -44,6 +61,13 @@ bool Student::operator==(Student const& rhs) {
 }
 
 bool Student::operator==(int id) {
+  if(this->ID == id) {
+    return true;
+  }
+  return false;
+}
+
+bool Student::operator!=(int id) {
   if(this->ID == id) {
     return true;
   }
