@@ -11,21 +11,22 @@ template <class B>
 class BST {
 private:
     TreeNode<B> *root;
+    B* key;
 
 public:
     BST();
     ~BST();
 
     void insertNode(B value);
-    bool searchNode(B value);
+    bool searchNode(B* value);
     bool deleteNode(B value);
 
     bool isEmpty();
     //int getMax();
     //int getMin();
-    void recPrint(TreeNode<B> *node);
+    void recPrint(TreeNode<B>* node);
     void printTree();
-    void printNode(B value);
+    void printNode(B* value);
     TreeNode<B> giveNode(int value);
 
     TreeNode<B> *getSuccessor(TreeNode<B> *d); //returns the successor of the node to be deleted, d
@@ -51,7 +52,7 @@ bool BST<B>::isEmpty() {
 }
 
 template <class B>
-void BST<B>::recPrint(TreeNode<B> *node) {
+void BST<B>::recPrint(TreeNode<B>* node) {
   //inorder traversal
   //prints tree starting at a specfic key
   if (node != NULL) {
@@ -68,12 +69,14 @@ void BST<B>::printTree() {
 }
 
 template <class B>
-void BST<B>::printNode(B value) {
+void BST<B>::printNode(B* value) {
 
   TreeNode<B> *current = root;
 
-  while (current->key != value) {
-    if (value < current->key) {
+  while (current->key.getID() != value->getID()) {
+
+    //cout << "XXXXXXXX" << value << endl;
+    if (value->getID() < current->key.getID()) {
       current = current -> left;
     }
     else {
@@ -90,10 +93,10 @@ void BST<B>::printNode(B value) {
 template <class B>
 TreeNode<B> BST<B>::giveNode(int value) {
 
-  TreeNode<B> *current = root;
+  TreeNode<B>* current = root;
 
-  while (current->key != value) {
-    if (value < current->key) {
+  while (current->key.getID() != value) {
+    if (value < current->key.getID()) {
       current = current -> left;
     }
     else {
@@ -101,10 +104,11 @@ TreeNode<B> BST<B>::giveNode(int value) {
     }
     if(current == NULL) {
       //value does not exist
-      return NULL;
+      return *current;
     }
   }
-  return current;
+
+  return *current;
 }
 
 // template <class B>
@@ -145,7 +149,7 @@ void BST<B>::insertNode(B value) {
     while(true) {
       parent = current;
 
-      if(value < current-> key) {
+      if(value.getID() < current-> key.getID()) {
         //go left
         current = current->left;
         if(current == NULL) {
@@ -165,15 +169,18 @@ void BST<B>::insertNode(B value) {
 }
 
 template <class B>
-bool BST<B>::searchNode(B value) {
+bool BST<B>::searchNode(B* value) {
   if (isEmpty()) {
     return false;
   }
   else {
-    TreeNode<B> *current = root;
+    TreeNode<B>* current = root;
+    //cout << "HHXXXXXXXXX" << (value->getID()) << endl;
+    while (current->key.getID() != value->getID()) {
+      //cout << "HHXXXXXXXXX" << value << endl;
 
-    while (current->key != value) {
-      if (value < current->key) {
+
+      if (value->getID() < current->key.getID()) {
         current = current -> left;
       }
       else {

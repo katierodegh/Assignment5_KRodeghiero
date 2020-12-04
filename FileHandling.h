@@ -12,15 +12,16 @@ class FileHandling {
 
 public:
   FileHandling();
-  ~FileHandling();
+  //~FileHandling();
   bool checkForFile(string fileName); //check to see if the files exist
   bool bothExist();
   void populateFacTree();
   void populateStudTree();
-  void CloseFile(ifstream& myFile, ifstream& myFile); // close the file
+  void PrintToFile(string writeFile);
+  void CloseFile(ifstream& studFile, ifstream& facFile); // close the file
 
-  BST<Student> &studentTree;
-  BST<Faculty> &facultyTree;
+  BST<Student> *masterStudent;
+  BST<Faculty> *masterFaculty;
 };
 
 #endif
