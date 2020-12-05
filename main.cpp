@@ -3,6 +3,7 @@
 // rodeghiero@chapman.edu
 // CPSC350 - 02
 // Assignment 5: Building a Database with Binary Search Trees
+//I'm using one late day
 
 #include "BST.h"
 #include "TreeNode.h"

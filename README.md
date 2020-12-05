@@ -6,6 +6,8 @@ Email: rodeghiero@chapman.edu
 CPSC350 - 02
 Assignment 5: Building a Database with Binary Search Trees
 
+I'm using one late day
+
 No known run time errors. It should do most things smoothly. Rollback doesn't work completely but it won't crash the program. For 12.remove the advisee, it removes the advisees from the advisors student list but doesn't do anything else with it. There should be solid referential integrity, but the error checking isn't great. If you try to put in the wrong type of input (string when expecting int specifically) it might not work.
 
 
