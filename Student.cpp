@@ -1,8 +1,11 @@
+// Katie Rodeghiero
+// CPSC350 - 02
+
 #include "Student.h"
 #include<iostream>
 using namespace std;
 
-Student::Student() {
+Student::Student()  { //default student constructor
   ID = 0;
   name = "";
   studLevel = "";
@@ -11,7 +14,7 @@ Student::Student() {
   advisorID = 0;
 }
 
-Student::Student(int ID, string name, string studLevel, string major, double GPA, int advisorID) {
+Student::Student(int ID, string name, string studLevel, string major, double GPA, int advisorID) { //student constructor that takes in all the info
   this->ID = ID;
   this->name = name;
   this->studLevel = studLevel;
@@ -20,7 +23,7 @@ Student::Student(int ID, string name, string studLevel, string major, double GPA
   this->advisorID = advisorID;
 }
 
-Student::Student(int ID) {
+Student::Student(int ID) { //makes a student with only the id
   this->ID = ID;
   name = "";
   studLevel = "";
@@ -29,89 +32,25 @@ Student::Student(int ID) {
   advisorID = 0;
 }
 
-int Student::getAdvisorID() {
+int Student::getAdvisorID() { //gets advior ID number
   return advisorID;
 }
 
-int Student::getID() {
+int Student::getID() { //gets the student's id number
   return ID;
 }
 
-void Student::setAdvisorID(int ID) {
-  this->ID = ID;
+void Student::setAdvisorID(int ID) { //sets the advisor ID number
+  advisorID = ID;
 }
 
-ostream& operator<<(ostream& os, const Student& obj) {
-  os << "ID: " << obj.ID << endl;
-  os << "Name: " << obj.name << endl;
-  os << "Student Level: " << obj.studLevel << endl;
-  os << "Major: " << obj.major << endl;
-  os << "GPA: " << obj.GPA << endl;
-  os << "Advisor ID: " << obj.advisorID << endl;
+ostream& operator<<(ostream& os, const Student& obj) { //lets us print the whole student object
+  os << obj.name << endl;
+  os << obj.ID << endl;
+  os << obj.studLevel << endl;
+  os << obj.major << endl;
+  os << obj.GPA << endl;
+  os << obj.advisorID << endl;
 
   return os;
-}
-
-bool Student::operator<(Student* const& rhs) {
-//bool Student::operator<(Student* stud) {
-  if(this->ID < rhs->ID) {
-    return true;
-  }
-  return false;
-}
-
-bool Student::operator>(Student* const& rhs) {
-  if(this->ID > rhs->ID) {
-    return true;
-  }
-  return false;
-}
-
-bool Student::operator==(Student* const& rhs) {
-  if(this->ID == rhs->ID) {
-    return true;
-  }
-  return false;
-}
-
-// bool Student::operator<(Student const& rhs) {
-//   if(this->ID < rhs.ID) {
-//     return true;
-//   }
-//   return false;
-// }
-
-// bool Student::operator>(Student const& rhs) {
-//   if(this->ID > rhs.ID) {
-//     return true;
-//   }
-//   return false;
-// }
-//
-// bool Student::operator==(Student const& rhs) {
-//   if(this->ID == rhs.ID) {
-//     return true;
-//   }
-//   return false;
-// }
-
-bool Student::operator==(int id) {
-  if(this->ID == id) {
-    return true;
-  }
-  return false;
-}
-
-bool Student::operator!=(int id) {
-  if(this->ID != id) {
-    return true;
-  }
-  return false;
-}
-
-bool Student::operator!=(Student* stud) {
-  if(this->ID != stud->ID) {
-    return true;
-  }
-  return false;
 }

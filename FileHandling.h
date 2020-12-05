@@ -1,3 +1,6 @@
+// Katie Rodeghiero
+// CPSC350 - 02
+
 #include<iostream>
 #include <fstream>
 #include "Student.h"
@@ -12,13 +15,13 @@ class FileHandling {
 
 public:
   FileHandling();
-  //~FileHandling();
   bool checkForFile(string fileName); //check to see if the files exist
   bool bothExist();
-  void populateFacTree();
-  void populateStudTree();
-  void PrintToFile(string writeFile);
-  void CloseFile(ifstream& studFile, ifstream& facFile); // close the file
+  void populateFacTree(); //if there's a file, fill the fac tree
+  void populateStudTree(); //if there's a file, fill the stud tree
+  void PrintToFiles();
+  void filePrintStud(TreeNode<Student>* node, ofstream& myFile); //print to the files
+  void filePrintFac(TreeNode<Faculty>* node, ofstream& myFile); //print to the files
 
   BST<Student> *masterStudent;
   BST<Faculty> *masterFaculty;

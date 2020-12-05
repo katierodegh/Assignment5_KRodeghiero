@@ -1,3 +1,6 @@
+// Katie Rodeghiero
+// CPSC350 - 02
+
 #include<iostream>
 #include "TreeNode.h"
 using namespace std;
@@ -9,29 +12,20 @@ class Student {
 private:
   int ID;
   string name;
-  string studLevel; // field (Freshman, Sophomore, etc)
+  string studLevel;
   string major;
   double GPA;
   int advisorID;
 
 public:
-  Student();
-  Student(int ID, string name, string studLevel, string major, double GPA, int advisorID);
-  Student(int ID);
-  int getID();
-  int getAdvisorID();
-  void setAdvisorID(int ID);
-  friend ostream& operator<<(ostream& os, const Student& obj);
-  bool operator<(Student* const& rhs);
-  //bool operator<(Student* stud);
-  bool operator>(Student* const& rhs);
-  bool operator==(Student* const& rhs);
-  // bool operator<(Student const& rhs);
-  // bool operator>(Student const& rhs);
-  // bool operator==(Student const& rhs);
-  bool operator==(int id);
-  bool operator!=(int id);
-  bool operator!=(Student* stud);
+  Student(); //default student constructor
+  Student(int ID, string name, string studLevel, string major, double GPA, int advisorID); //student constructor with everything
+  Student(int ID); //student constructor with only the ID
+  int getID(); //get the student ID
+  int getAdvisorID(); //get the advisor ID
+  void setAdvisorID(int ID); //set the advisor ID
+  friend ostream& operator<<(ostream& os, const Student& obj); //lets us print the whole student object
+
 };
 
 #endif

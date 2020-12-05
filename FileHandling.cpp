@@ -1,21 +1,23 @@
+// Katie Rodeghiero
+// CPSC350 - 02
+
 #include "FileHandling.h"
 #include "Student.h"
 #include "Faculty.h"
 #include "Execute.h"
+#include "BST.h"
+#include "TreeNode.h"
 #include <fstream>
 #include<iostream>
 using namespace std;
 
-FileHandling::FileHandling(){
+FileHandling::FileHandling(){ //make the trees
   masterStudent = new BST<Student>;
   masterFaculty = new BST<Faculty>;
 
 }
 
-// FileHandling::~FileHandling(){
-// }
-
-bool FileHandling::checkForFile(string fileName) { //checks to see if both files exist
+bool FileHandling::checkForFile(string fileName) { //checks to see if file exists
   ifstream myfile(fileName);
   if(myfile.is_open()) {
     myfile.close();
@@ -24,9 +26,9 @@ bool FileHandling::checkForFile(string fileName) { //checks to see if both files
   return false;
 }
 
-bool FileHandling::bothExist() {
+bool FileHandling::bothExist() { //checks to see if both files exists
   if (checkForFile("studentTable.txt") && checkForFile("facultyTable.txt")) {
-    populateFacTree();
+    populateFacTree(); //if they exist, populate
     populateStudTree();
     return true;
   }
@@ -36,7 +38,7 @@ bool FileHandling::bothExist() {
 }
 
 
-void FileHandling::populateFacTree() {
+void FileHandling::populateFacTree() { //read the faculty input in from the file
   ifstream facFile("facultyTable.txt");
   string myText;
   int lineID;
@@ -48,11 +50,14 @@ void FileHandling::populateFacTree() {
   vector<int> lineAdvisees;
   while(getline(facFile, myText)) {
     ++count;
+    if (myText.length() == 0) {
+      getline(facFile, myText);
+    }
     if(count == 1) {
-      lineID = stoi(myText);
+      lineName = myText;
     }
     else if(count == 2) {
-      lineName = myText;
+      lineID = stoi(myText);
     }
     else if(count == 3) {
       lineLevel = myText;
@@ -66,7 +71,7 @@ void FileHandling::populateFacTree() {
     else if(count <= (5 + numAdvisees)) {
       lineAdvisees.push_back(stoi(myText)); //making the vector
       if (count == (5 + numAdvisees)) {
-        //cout << "HERE HERE HERE" << endl;
+        cout << "HERE HERE HERE" << endl;
         masterFaculty->insertNode(Faculty(lineID, lineName, lineLevel, lineDepartment, lineAdvisees));
         lineAdvisees.clear();
         count = 0;
@@ -77,7 +82,7 @@ void FileHandling::populateFacTree() {
   facFile.close();
 }
 
-void FileHandling::populateStudTree() {
+void FileHandling::populateStudTree() { //read the student information from the file
   ifstream studFile("studentTable.txt");
   string myText;
   int lineID;
@@ -89,11 +94,14 @@ void FileHandling::populateStudTree() {
   int count = 0;
   while(getline(studFile, myText)) {
     ++count;
+    if (myText.length() == 0) {
+      getline(studFile, myText);
+    }
     if(count == 1) {
-      lineID = stoi(myText);
+      lineName = myText;
     }
     else if(count == 2) {
-      lineName = myText;
+      lineID = stoi(myText);
     }
     else if(count == 3) {
       lineLevel = myText;
@@ -106,10 +114,7 @@ void FileHandling::populateStudTree() {
     }
     else if(count == 6) {
       lineAdvisorID = stoi(myText);
-      cout << "ID: " << lineID << endl;
-      cout << "ADVISOR ID: " << lineAdvisorID << endl;
       masterStudent->insertNode(Student(lineID, lineName, lineLevel, lineMajor, lineGPA, lineAdvisorID));
-      cout << "HERE HERE HERE" <<endl;
       count = 0;
     }
   }
@@ -117,16 +122,30 @@ void FileHandling::populateStudTree() {
 }
 
 
-void FileHandling::PrintToFile(string writeFile) { //passes writeFile by refernces to print to the open writeFile
+void FileHandling::PrintToFiles() { //print to the writeFiles
   ofstream myFile;
-  myFile.open(writeFile, ios::trunc);
-  //transverse the tree
-    //myFile << currentNode;
-  //use the print thing from BST??
-  //writeFile << arrayGrid[i][j]; //writes each line to the output file
+  myFile.open("studentTable.txt", ios::trunc);
+  TreeNode<Student>* rootStud = masterStudent->root;
+  filePrintStud(rootStud, myFile); //rewrite the stud file
+  myFile.close();
+  myFile.open("facultyTable.txt", ios::trunc);
+  TreeNode<Faculty>* rootFac = masterFaculty->root;
+  filePrintFac(rootFac, myFile); //rewrite the fac file
+  myFile.close();
 }
 
-// void FileHandling::CloseFile(ifstream& studFile, ifstream& facFile) { //closes the file
-//   studFile.close();
-//   facFile.close();
-// }
+void FileHandling::filePrintStud(TreeNode<Student>* node, ofstream& myFile) { //write on the open student file
+  if (node != NULL) {
+    filePrintStud(node->left, myFile);
+    myFile << node->key << endl;
+    filePrintStud(node->right, myFile);
+  }
+}
+
+void FileHandling::filePrintFac(TreeNode<Faculty>* node, ofstream& myFile) { // write on the open faculty file
+  if (node != NULL) {
+    filePrintFac(node->left, myFile);
+    myFile << node->key << endl;
+    filePrintFac(node->right, myFile);
+  }
+}

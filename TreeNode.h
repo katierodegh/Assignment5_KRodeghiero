@@ -1,3 +1,6 @@
+// Katie Rodeghiero
+// CPSC350 - 02
+
 #include <iostream>
 using namespace std;
 #ifndef TREENODE_H
@@ -5,12 +8,9 @@ using namespace std;
 
 template <class T>
 class TreeNode {
-  //I think this needs to store a faculty or student
   public:
-    TreeNode();
-    TreeNode(T key); //out key is our value, and the value is the key (in this case but they can be separate)
-    //TreeNode(int key, string value); //another option
-    ~TreeNode();
+    TreeNode(); //default constructor
+    TreeNode(T key); //constructor that take in a key
 
     T key; //key is the entire student object
     TreeNode *left; //pointers to out left and right child
@@ -19,21 +19,16 @@ class TreeNode {
 };
 
 template <class T>
-TreeNode<T>::TreeNode() {
+TreeNode<T>::TreeNode() { //set left and right pointers
   left = NULL;
   right = NULL;
 }
 
 template <class T>
-TreeNode<T>::TreeNode(T k) {
+TreeNode<T>::TreeNode(T k) { //set points and key
   left = NULL;
   right = NULL;
   key = k;
-}
-
-template <class T>
-TreeNode<T>::~TreeNode() {
-  //need to research this
 }
 
 #endif

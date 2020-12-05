@@ -1,3 +1,6 @@
+// Katie Rodeghiero
+// CPSC350 - 02
+
 #include<iostream>
 using namespace std;
 
@@ -11,9 +14,9 @@ class GenStack{
     GenStack(int maxSize); //overload
     ~GenStack();//destructor
 
-    void push(S data);
-    S pop();
-    S peek();
+    void push(S* data); //add to the stack
+    S pop(); //remove from the stack
+    S peek(); //look at the top
 
     bool isFull();
     bool isEmpty();
@@ -22,20 +25,20 @@ class GenStack{
     int top;
     int mSize;
 
-    S* myArray; //this is a pointer
+    S* myArray; //this is a pointer to the array
 
 };
 
 template <class S>
 GenStack<S>::GenStack(){ //default constructer
-  myArray = new S[128]; //this is on the heap
-  mSize = 128;
+  myArray = new S[16]; //this creates an array on the heap
+  mSize = 16;
   top = -1;
 }
 
 template <class S>
 GenStack<S>::GenStack(int maxSize){ //overload constructer
-  myArray = new S[maxSize]; //this is on the heap
+  myArray = new S[maxSize]; //this creates an array on the heap
   mSize = maxSize;
   top = -1;
 }
@@ -46,24 +49,26 @@ GenStack<S>::~GenStack(){ //destructor
 }
 
 template <class S>
-void GenStack<S>::push(S data){
-  //check is full before procededing
-  myArray[++top] = data;
+void GenStack<S>::push(S* data){
+  if(!isFull()) {
+    myArray[++top] = *data;
+  }
 }
 
 template <class S>
-S GenStack<S>::pop(){
+S GenStack<S>::pop(){ //remove from the top of the stack
   if (isEmpty()) {
     cout << "Stack is empty" << endl;
-    return '\0';
+    S* hi  = new S();
+    return *hi;
   }
-  else
+  else{
     return myArray[top--];
+  }
 }
 
 template <class S>
-S GenStack<S>::peek() {
-  //cheack if empty
+S GenStack<S>::peek() { //peak at the top of the stack
   if (isEmpty()) {
     cout << "Stack is empty" << endl;
     return '\0';

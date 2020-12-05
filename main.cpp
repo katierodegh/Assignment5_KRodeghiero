@@ -1,3 +1,9 @@
+// Katie Rodeghiero
+// ID: 2345864
+// rodeghiero@chapman.edu
+// CPSC350 - 02
+// Assignment 5: Building a Database with Binary Search Trees
+
 #include "BST.h"
 #include "TreeNode.h"
 #include "Execute.h"
@@ -6,14 +12,19 @@
 #include<iostream>
 using namespace std;
 
-int main()
+int main(int argc, char **argv)
 {
-  FileHandling* handleFile = new FileHandling();
-  Execute* running = new Execute(handleFile);
-  bool keep = true;
+  FileHandling* handleFile = new FileHandling(); //new instance of file handling
+  Execute* running = new Execute(handleFile); //new instance of running
+  bool keep = true; //condition for looping
   int choose;
 
-  /////
+  bool containsFile = handleFile->bothExist(); //make sure coth files exist (or don't)
+  if (!containsFile) {
+    cout << "Please start by entering a faculty member" << endl;
+    running->addFac(running->newFacMember());
+  }
+
   while (keep) {
     cout << "Please enter the number of the action you wish to perform: " << endl;
     cout << "1. Print all students and their information (sorted by ascending id #)" << endl;
@@ -33,15 +44,10 @@ int main()
     cout << "Please enter the number of the action you wish to perform: " << endl;
     cin >> choose;
 
-    bool containsFile = handleFile->bothExist();
-    if (!containsFile) {
-      cout << "Please start by entering a faculty member" << endl;
-      running->newFacMember();
-    }
-
     int inStudID;
     int inFacID;
 
+    //Cases align with prompts 1 - 14
     switch (choose) {
       case 1:
         running->printStuds();
@@ -69,45 +75,43 @@ int main()
         cin >> inFacID;
         running->printAllStudsInfo(inFacID);
         break;
-      // case 7:
-      //   running->addStud(running->newStud());
-      //   break;
-      // case 8:
-      //   cout << "Enter a student ID number: " << endl;
-      //   cin >> inStudID;
-      //   running->deleteStud(inStudID);
-      //   break;
-      // case 9:
-      //   running->addFac(running->newFacMember());
-      //   break;
-      // case 10:
-      //   cout << "Enter a faulty ID number: " << endl;
-      //   cin >> inFacID;
-      //   running->deleteFac(inFacID);
-      //   break;
-      // case 11:
-      //   cout << "Enter the student ID number: " << endl;
-      //   cin >> inStudID;
-      //   cout << "Enter the new faulty ID number: " << endl;
-      //   cin >> inFacID;
-      //   running->changeAdvisor(inStudID, inFacID);
-      //   break;
-      // case 12:
-      //   cout << "Enter the student ID number to remove: " << endl;
-      //   cin >> inStudID;
-      //   cout << "Enter the faulty ID number: " << endl;
-      //   cin >> inFacID;
-      //   running->removeAdvisee(inStudID, inFacID);
-      //   running->setEmptyStudAdv(inStudID);
-      //   break;
-      // case 13:
-      //   cout << "Choice: " << choose << endl;
-      //   //function call
-      //   break;
-      // case 14:
-      //   cout << "Choice: " << choose << endl;
-      //   keep = false;
-      //   break;
+      case 7:
+        running->addStud(running->newStud());
+        break;
+      case 8:
+        cout << "Enter a student ID number: " << endl;
+        cin >> inStudID;
+        running->deleteStud(inStudID);
+        break;
+      case 9:
+        running->addFac(running->newFacMember());
+        break;
+      case 10:
+        cout << "Enter a faulty ID number: " << endl;
+        cin >> inFacID;
+        running->deleteFac(inFacID);
+        break;
+      case 11:
+        cout << "Enter the student ID number: " << endl;
+        cin >> inStudID;
+        cout << "Enter the new faulty ID number: " << endl;
+        cin >> inFacID;
+        running->changeAdvisor(inStudID, inFacID);
+        break;
+      case 12:
+        cout << "Enter the student ID number to remove: " << endl;
+        cin >> inStudID;
+        cout << "Enter the faulty ID number: " << endl;
+        cin >> inFacID;
+        running->removeAdvisee(inStudID, inFacID);
+        break;
+      case 13:
+        running->Rollback();
+        break;
+      case 14:
+        handleFile->PrintToFiles();
+        keep = false;
+        break;
 
       default:
         cout << "nope, not actually an option" << endl;
